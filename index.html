@@ -442,7 +442,7 @@
         <div class="sidebar-subtitle">Technical AI Product Leader</div>
 
         <div class="sidebar-contact">
-            <a href="mailto:bdang@stanford.edu">bdang@stanford.edu</a>
+            <a href="#" id="email-link" data-user="bkdang" data-domain="alumni.stanford.edu">Contact Email</a>
         </div>
 
         <nav>
@@ -745,7 +745,7 @@
 
             <h3>Contact & Next Steps</h3>
             <p>
-                <strong>Email:</strong> <a href="mailto:bdang@stanford.edu">bdang@stanford.edu</a><br>
+                <strong>Email:</strong> <a href="#" id="email-link-footer" data-user="bkdang" data-domain="alumni.stanford.edu">Contact Email</a><br>
                 <strong>Location:</strong> SF Bay Area (open to remote/hybrid for right opportunity)
             </p>
             <p class="text-muted">
@@ -755,6 +755,18 @@
     </main>
 
     <script>
+        // Email protection - decode on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailLinks = document.querySelectorAll('#email-link, #email-link-footer');
+            emailLinks.forEach(function(link) {
+                const user = link.getAttribute('data-user');
+                const domain = link.getAttribute('data-domain');
+                const email = user + '@' + domain;
+                link.href = 'mailto:' + email;
+                link.textContent = email;
+            });
+        });
+
         // Smooth scroll navigation with active state
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.sidebar-nav a');
