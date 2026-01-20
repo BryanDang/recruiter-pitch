@@ -442,7 +442,7 @@
         <div class="sidebar-subtitle">Technical AI Product Leader</div>
 
         <div class="sidebar-contact">
-            <a href="#" id="email-link" data-user="bkdang" data-domain="alumni.stanford.edu">Contact Email</a>
+            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#107;&#100;&#97;&#110;&#103;&#64;&#97;&#108;&#117;&#109;&#110;&#105;&#46;&#115;&#116;&#97;&#110;&#102;&#111;&#114;&#100;&#46;&#101;&#100;&#117;">&#98;&#107;&#100;&#97;&#110;&#103;&#64;&#97;&#108;&#117;&#109;&#110;&#105;&#46;&#115;&#116;&#97;&#110;&#102;&#111;&#114;&#100;&#46;&#101;&#100;&#117;</a>
         </div>
 
         <nav>
@@ -745,7 +745,7 @@
 
             <h3>Contact & Next Steps</h3>
             <p>
-                <strong>Email:</strong> <a href="#" id="email-link-footer" data-user="bkdang" data-domain="alumni.stanford.edu">Contact Email</a><br>
+                <strong>Email:</strong> <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#107;&#100;&#97;&#110;&#103;&#64;&#97;&#108;&#117;&#109;&#110;&#105;&#46;&#115;&#116;&#97;&#110;&#102;&#111;&#114;&#100;&#46;&#101;&#100;&#117;">&#98;&#107;&#100;&#97;&#110;&#103;&#64;&#97;&#108;&#117;&#109;&#110;&#105;&#46;&#115;&#116;&#97;&#110;&#102;&#111;&#114;&#100;&#46;&#101;&#100;&#117;</a><br>
                 <strong>Location:</strong> SF Bay Area (open to remote/hybrid for right opportunity)
             </p>
             <p class="text-muted">
@@ -755,43 +755,6 @@
     </main>
 
     <script>
-        // Email protection - decode on page load
-        (function() {
-            function decodeEmails() {
-                const emailLinks = document.querySelectorAll('#email-link, #email-link-footer');
-                if (emailLinks.length === 0) {
-                    console.error('No email links found');
-                    return;
-                }
-
-                emailLinks.forEach(function(link) {
-                    const user = link.getAttribute('data-user');
-                    const domain = link.getAttribute('data-domain');
-
-                    if (!user || !domain) {
-                        console.error('Missing data attributes on email link');
-                        return;
-                    }
-
-                    const email = user + '@' + domain;
-                    link.href = 'mailto:' + email;
-                    link.textContent = email;
-
-                    // Prevent default # behavior
-                    link.onclick = function(e) {
-                        window.location.href = 'mailto:' + email;
-                        return false;
-                    };
-                });
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', decodeEmails);
-            } else {
-                decodeEmails();
-            }
-        })();
-
         // Smooth scroll navigation with active state
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.sidebar-nav a');
