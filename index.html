@@ -756,16 +756,41 @@
 
     <script>
         // Email protection - decode on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const emailLinks = document.querySelectorAll('#email-link, #email-link-footer');
-            emailLinks.forEach(function(link) {
-                const user = link.getAttribute('data-user');
-                const domain = link.getAttribute('data-domain');
-                const email = user + '@' + domain;
-                link.href = 'mailto:' + email;
-                link.textContent = email;
-            });
-        });
+        (function() {
+            function decodeEmails() {
+                const emailLinks = document.querySelectorAll('#email-link, #email-link-footer');
+                if (emailLinks.length === 0) {
+                    console.error('No email links found');
+                    return;
+                }
+
+                emailLinks.forEach(function(link) {
+                    const user = link.getAttribute('data-user');
+                    const domain = link.getAttribute('data-domain');
+
+                    if (!user || !domain) {
+                        console.error('Missing data attributes on email link');
+                        return;
+                    }
+
+                    const email = user + '@' + domain;
+                    link.href = 'mailto:' + email;
+                    link.textContent = email;
+
+                    // Prevent default # behavior
+                    link.onclick = function(e) {
+                        window.location.href = 'mailto:' + email;
+                        return false;
+                    };
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', decodeEmails);
+            } else {
+                decodeEmails();
+            }
+        })();
 
         // Smooth scroll navigation with active state
         document.addEventListener('DOMContentLoaded', function() {
