@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan Dang - Technical AI Product Leader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --border-color: #e5e7eb;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: #ffffff;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-light);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            z-index: 1000;
+        }
+
+        .sidebar-photo {
+            width: 200px;
+            height: 234px;
+            margin: 0 auto 1.5rem;
+            background: #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .sidebar-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar-photo-placeholder {
+            color: var(--text-light);
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .sidebar-contact {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-contact a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+            word-break: break-all;
+        }
+
+        .sidebar-contact a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-medium);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #ffffff;
+            color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            max-width: 900px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .hero h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero-intro {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .hero-meta strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+
+        section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        /* Pitch Box */
+        .pitch-box {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .pitch-box p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .pitch-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .one-sentence {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #eff6ff;
+            border-radius: 6px;
+        }
+
+        /* Lists */
+        ul {
+            margin: 1rem 0 1rem 1.5rem;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-medium);
+        }
+
+        li strong {
+            color: var(--text-dark);
+        }
+
+        /* Proof Points Grid */
+        .proof-points {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .proof-point {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .proof-point h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .proof-point ul {
+            margin-left: 1.2rem;
+        }
+
+        .proof-point .enables {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-style: italic;
+            color: var(--text-medium);
+        }
+
+        /* Archetype Comparisons */
+        .archetype {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .archetype h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .archetype p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Requirements Section */
+        .requirements-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .requirement-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .requirement-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .requirement-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        /* Compensation Box */
+        .comp-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 1.25rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .comp-box strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Tech Background */
+        .tech-section {
+            margin-bottom: 2rem;
+        }
+
+        .tech-section h4 {
+            margin-top: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .sidebar-nav li {
+                margin-bottom: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                page-break-after: always;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar-nav {
+                display: none;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Link Styles */
+        a {
+            color: var(--primary-color);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Utility Classes */
+        .text-muted {
+            color: var(--text-light);
+        }
+
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-photo">
+            <img src="profile_medium.png" alt="Bryan Dang">
+        </div>
+
+        <div class="sidebar-title">Bryan Dang</div>
+        <div class="sidebar-subtitle">Technical AI Product Leader</div>
+
+        <div class="sidebar-contact">
+            <a href="/cdn-cgi/l/email-protection#77151c1316191037161b021a191e59040316191118051359121302"><span class="__cf_email__" data-cfemail="d2b0b9b6b3bcb592b3bea7bfbcbbfca1a6b3bcb4bda0b6fcb7b6a7">[email&#160;protected]</span></a>
+        </div>
+
+        <nav>
+            <ul class="sidebar-nav">
+                <li><a href="#pitch" class="active">How to Pitch</a></li>
+                <li><a href="#proof">Proof Points</a></li>
+                <li><a href="#different">What Makes Me Different</a></li>
+                <li><a href="#positioning">Role & Level</a></li>
+                <li><a href="#requirements">Requirements & Fit</a></li>
+                <li><a href="#technical">Technical Background</a></li>
+                <li><a href="#context">Additional Context</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Bryan Dang</h1>
+            <h2>Technical AI Product Leader with Deep Evaluation and Safety Expertise</h2>
+            <p class="hero-intro">
+                I validate ML feasibility, research direction, and commercial viability. Built clinical training SaaS from 0 to 10,000 users; designed LLM evaluation frameworks; developed computer vision systems at Stanford.
+            </p>
+            <div class="hero-meta">
+                <div><strong>Current:</strong> Head of Automation & Evals at Allwell</div>
+                <div><strong>Education:</strong> Stanford MS Engineering</div>
+                <div><strong>Location:</strong> SF Bay Area</div>
+            </div>
+        </div>
+
+        <!-- How to Pitch Section -->
+        <section id="pitch">
+            <h2>How to Pitch Bryan</h2>
+            
+            <div class="pitch-box">
+                <p>
+                    Staff+ AI Product Leader with rare combination: clinical domain expertise, ML engineering depth, and proven ability to scale products. Built clinical training system from 0 to 10k users; designed LLM evaluation frameworks; developed custom computer vision systems at Stanford. Brings research rigor (7 publications) with execution velocity (scaled team to 25, managed 120+ distributed data collectors).
+                </p>
+            </div>
+
+            <div class="one-sentence">
+                <strong>One-sentence pitch:</strong> Technical AI Product Leader with deep evaluation and regulatory expertise—13+ years of experience navigating the scaling pitfalls that trip up other product leads.
+            </div>
+
+            <h3>Why Bryan vs. other Technical Product Leader candidates:</h3>
+            <ul>
+                <li><strong>Unlike "MBA" PMs who treat AI as black box:</strong> Bryan learned this lesson early, went back for Stanford MS to build real technical fluency—now reduces engineering friction through hands-on shipping and debugging</li>
+                <li><strong>Unlike "Tech-First" leads who over-optimize metrics:</strong> Bryan made this mistake at Syminar, learned that technical specs don't drive sales—institutional constraints do (generated 80% of dealflow pipeline by solving institutional buying problem)</li>
+                <li><strong>Unlike "Academic" leads who chase novelty:</strong> Bryan hit deployment reality at Stanford—had to quantize model 75% to ship—now starts with production constraints first, technical approach second</li>
+            </ul>
+        </section>
+
+        <!-- Core Proof Points Section -->
+        <section id="proof">
+            <h2>Core Proof Points</h2>
+            
+            <div class="proof-points">
+                <div class="proof-point">
+                    <h4>Product Scale & Execution</h4>
+                    <ul>
+                        <li>Built Syminar (clinical SaaS) from 0 to 10,000+ users across multiple training institutions</li>
+                        <li>Generated 80% of sales pipeline through research-to-revenue strategy (packaged product as research enablement)</li>
+                        <li>Drove 250% user growth in one fiscal cycle through strategic pivot during COVID</li>
+                    </ul>
+                    <div class="enables">
+                        <strong>Enables:</strong> Product decisions grounded in real market feedback, regulatory considerations, and user adoption patterns
+                    </div>
+                </div>
+
+                <div class="proof-point">
+                    <h4>Technical Depth</h4>
+                    <ul>
+                        <li>Achieved 26.3% performance gain over state of the art computer vision models in wound assessment system through systematic architecture ablation studies</li>
+                        <li>Reduced model size 75% (13.6MB→3.4MB) via quantization-aware training while retaining 95-99% accuracy. Enabling local computer vision inference to keep end-user data HIPAA-compliant</li>
+                        <li>Built MCP server enabling LLM access to federal healthcare price databases—reduced lookup time from 15min to instant</li>
+                    </ul>
+                    <div class="enables">
+                        <strong>Enables:</strong> As a technical product leader, makes better engineering tradeoffs, earn engineering trust, reduce execution risk, and help push projects along more predictably while communicating more effectively with both technical teams and stakeholders
+                    </div>
+                </div>
+
+                <div class="proof-point">
+                    <h4>Research Rigor</h4>
+                    <ul>
+                        <li>Published 7 peer-reviewed articles in top clinical journals (maintained 1 paper/year since 2018)</li>
+                        <li>Designed LLM evaluation frameworks with clinician-validated rubrics (Cohen's kappa methodology)</li>
+                        <li>Managed multisite data operations: 13,500+ data points, 120+ annotators, achieved Krippendorff's α ≥ 0.90 for inter-rater reliability</li>
+                    </ul>
+                    <div class="enables">
+                        <strong>Enables:</strong> Product evaluation backed by academic rigor; defensible methods and reporting metrics for regulated environments
+                    </div>
+                </div>
+
+                <div class="proof-point">
+                    <h4>Team Building</h4>
+                    <ul>
+                        <li>Scaled team from 2 to 25 people across engineering, research, sales, and customer success</li>
+                        <li>Coordinated distributed workforce (120+ data collectors across 4 sites)</li>
+                        <li>Established cross-functional escalation protocols and stakeholder alignment processes</li>
+                    </ul>
+                    <div class="enables">
+                        <strong>Enables:</strong> Growing teams alongside product; ready for Staff+ scope beyond IC contribution
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Makes Me Different Section -->
+        <section id="different">
+            <h2>What Makes Me Different</h2>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-medium);">
+                Many Technical Product Leaders fall into one of three patterns. I've had 13+ years to make these mistakes myself, sort through the consequences with my teams and colleagues, and build intuition from leading product R&D and launches through quickly changing market behaviors and regulatory waters. That experienced lens is what I bring to every technical decision now.
+            </p>
+
+            <div class="archetype">
+                <h4>vs. "MBA" PMs (Great Communicators, Black Box Systems)</h4>
+                <p>
+                    These leaders excel at stakeholder management but treat systems as a black box. They can drain engineering time with endless feasibility questions because they can't validate technical approaches or parse documentation and console logs themselves.
+                </p>
+                <p>
+                    I've been this person. Early on, I relied entirely on engineering to tell me what was feasible. I watched projects slip because I couldn't tell when estimates were padded versus real blockers. I saw trust erode when I couldn't engage technically. Over 13 years, I learned to validate approaches myself—returned to Stanford for my MS, built CV models, designed LLM eval pipelines, deployed HIPAA-compliant systems. Now when engineering proposes something, I can sanity-check it, catch issues early, and earn trust through technical fluency instead of draining their time. That judgment didn't come from natural talent—it came from years of feeling the pain of not having it.
+                </p>
+            </div>
+
+            <div class="archetype">
+                <h4>vs. "Tech-First" Leads (Former Engineer, Metric-Obsessed)</h4>
+                <p>
+                    These leaders came from engineering and over-optimize for technical metrics—F1 score, perplexity, BERTScore—while missing the business use case entirely. They build technically impressive systems that don't move ROI or unit economics.
+                </p>
+                <p>
+                    I've shipped beautiful features that didn't make it into customer hands. Early at Syminar, I optimized for simulation fidelity and technical awards while missing what actually drove customer decisions. I've watched teams spend months squeezing out 2% resolution gains when the real bottleneck was user trust or workflow friction. Through 13 years of actually selling products, pivoting through COVID, navigating regulatory changes, and generating dealflow pipeline, I learned the hard way: the bottleneck is rarely the metric you're optimizing. When I finally talked to customers about institutional constraints instead of technical specs, I discovered their trialing periods were mandatory yet couldn't be funded easily—bringing pre-filled grants to champion users generated 80% of our sales pipeline. That's intuition you only build from feeling market resistance firsthand, not from dashboards.
+                </p>
+            </div>
+
+            <div class="archetype">
+                <h4>vs. "Academic" Leads (Novelty-Driven, SOTA Chaser)</h4>
+                <p>
+                    These leaders can prioritize novelty and state-of-the-art performance over latency, unit-costs, and reliability. They ship research demos that can't run in production. They want the newest models when the previous generation would work fine at 1/10th the cost.
+                </p>
+                <p>
+                    I've been the researcher pushing for SOTA. During my Stanford years, I chased the latest techniques and squeezed every accuracy point. Then I tried to deploy my wound assessment CV system and reality hit: mobile devices, HIPAA compliance, inference latency, model size constraints. I had to quantize the model down 75% (13.6MB→3.4MB) just to make it usable on legacy device browsers. Through 13 years of navigating actual compliance reviews, production deployments, and budget constraints, I learned that "good and ships" beats "perfect and stalled" every time. I maintain research rigor (1 paper/year since 2018) but I've felt the pain of missed deadlines and blown budgets enough to know when to ship the quantized model instead of chasing another 2% accuracy. That judgment comes from scar tissue, not theory.
+                </p>
+            </div>
+
+            <div class="archetype" style="background: #eff6ff; border: 1px solid #bfdbfe;">
+                <h4 style="color: var(--primary-color);">The Experienced Lens</h4>
+                <p>
+                    Thirteen years of leading products through regulatory changes, market shifts, and technical evolution means I've seen what actually breaks SaaS products in the wild. I've made the MBA mistake of treating tech as magic, the engineering mistake of over-optimizing metrics, and the academic mistake of chasing novelty. I don't avoid these pitfalls because I'm naturally balanced—I avoid them because I've lived the consequences and built intuition from navigating real launches, real regulatory constraints, and real market feedback. That's the lens I bring to every technical product decision now.
+                </p>
+            </div>
+        </section>
+
+        <!-- Role Positioning Section -->
+        <section id="positioning">
+            <h2>Role Positioning & Level</h2>
+            
+            <h3>Primary Position: Staff+ AI Product Leadership</h3>
+            <ul>
+                <li>Seeking technical product leadership roles where I can shape strategy while staying close to ML systems</li>
+                <li>Level: Staff+ at frontier AI labs; Principal at mid-stage startups; Head of Product at early-stage</li>
+                <li>Comparable roles: OpenAI Product Lead, Anthropic Technical PM, Google Principal PM (L7)</li>
+            </ul>
+
+            <h3>Also Suited For:</h3>
+            <ul>
+                <li><strong>Staff Applied Research Scientist</strong> (emphasize: production deployment + market grounding)</li>
+                <li><strong>Staff AI Engineer, Product-Adjacent</strong> (emphasize: product intuition + user research discipline)</li>
+            </ul>
+
+            <h3>Seniority Calibration</h3>
+            <ul>
+                <li>13+ years experience (mostly leadership)</li>
+                <li>Product scale: 10k users across multiple institutions</li>
+                <li>Technical depth: Stanford MS, production ML systems</li>
+                <li>Research credibility: 7 publications in top journals</li>
+                <li>Team building: Scaled to 25 people across functions</li>
+            </ul>
+
+            <p style="margin-top: 1.5rem;"><strong>Structure Flexibility:</strong> Open to full-time or contract-to-hire arrangements</p>
+        </section>
+
+        <!-- Requirements Section -->
+        <section id="requirements">
+            <h2>Requirements & Fit Indicators</h2>
+            
+            <div class="comp-box">
+                <strong>Compensation Expectations</strong><br>
+                $270k-$350k base (aligned with Staff+/Principal market rate at frontier AI companies). Open to discussing equity structure based on company stage and role specifics.
+            </div>
+
+            <div class="requirements-grid">
+                <div class="requirement-category">
+                    <h4>Must-Haves (Table Stakes)</h4>
+                    
+                    <div class="requirement-item">
+                        <strong>1. Line of sight to end users</strong>
+                        <p>Can see from my work layer down to frontline impact. Even in large orgs, need transparency through layers. Gets draining if I'm just moving tickets without understanding how paying stakeholders respond when my work ships.</p>
+                    </div>
+
+                    <div class="requirement-item">
+                        <strong>2. Team quality</strong>
+                        <p>Exceptionally skilled teammates who learn together with humility. Balanced between taking direction and having professional agency.</p>
+                    </div>
+
+                    <div class="requirement-item">
+                        <strong>3. Agency to iterate</strong>
+                        <p>Freedom to modify systems based on what data and humans reveal. Comfortable with ambiguity in data or strategy. Dealbreaker: checklist-heavy roles executing someone else's playbook without modification rights.</p>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h4>Flexible On</h4>
+                    <ul>
+                        <li>Company stage (early startup to frontier lab)</li>
+                        <li>Domain (explicitly domain-agnostic; interested in frontier AI, productivity hardware and software, brain-computer interfaces, robotics, and healthcare)</li>
+                        <li>Role type within seniority band (product leadership, applied research, or engineering)</li>
+                        <li>Employment structure (full-time or contract-to-hire)</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-category">
+                    <h4>Green Flags (What Attracts Me)</h4>
+                    <ul>
+                        <li>Frontier AI problems (LLMs, computer vision, productivity tools & workflows, brain-computer interfaces)</li>
+                        <li>Research publication support (want to maintain 1 paper/year)</li>
+                        <li>Orchestrating cross-functional collaboration with sharp teams</li>
+                        <li>Problems where synthesis of technical + user + market reality creates advantage</li>
+                    </ul>
+                </div>
+
+                <div class="requirement-category">
+                    <h4>Avoiding</h4>
+                    <ul>
+                        <li>Roles abstracted from end-user impact (many layers of separation)</li>
+                        <li>Purely execution-focused roles without strategic input</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Background Section -->
+        <section id="technical">
+            <h2>Technical Background</h2>
+            
+            <div class="tech-section">
+                <h4>Current Work (Allwell, 2025-Present)</h4>
+                <p><strong>Head of Automation & Evals:</strong> Building LLM evaluation frameworks and safety protocols for healthcare price search workflows. Designed evaluation dataset with clinical triage rubric validated across clinician evaluators. Scaled quality review using LLM-as-judge methodology with Cohen's kappa validation. Created adversarial test dataset surfacing AI failure modes. Built MCP server enabling LLM access to federal databases.</p>
+            </div>
+
+            <div class="tech-section">
+                <h4>Core Technical Capabilities</h4>
+                <ul>
+                    <li><strong>LLM Systems:</strong> Evaluation frameworks, safety evals, adversarial testing, LLM-as-judge methodologies, preference modeling</li>
+                    <li><strong>Computer Vision:</strong> Instance segmentation, edge deployment, quantization-aware training, model optimization</li>
+                    <li><strong>Data Operations:</strong> Annotation pipeline design, inter-rater reliability protocols, multisite coordination, rubric-based evaluation</li>
+                    <li><strong>Infrastructure:</strong> MCP servers, HIPAA-compliant architecture, API design, edge compute deployment</li>
+                </ul>
+            </div>
+
+            <div class="tech-section">
+                <h4>Education & Research</h4>
+                <p>
+                    <strong>Stanford University:</strong> MS Design-Impact Engineering, AI Service Design depth | Threshold Ventures Fellow<br>
+                    <em>Thesis: Clinician Workflows in a Post-automation World</em><br>
+                    Built end-to-end wound assessment computer vision system from expert annotation pipeline through HIPAA-compliant mobile deployment as dissertation project
+                </p>
+                <p>
+                    <strong>Publications:</strong> 7 peer-reviewed articles in top clinical education journals (Clinical Simulation in Nursing, BMC Medical Education, Journal of Nursing Education)
+                </p>
+                <p>
+                    <strong>Licenses:</strong> RN, PHN | Clinical research and intensive care background
+                </p>
+            </div>
+
+            <div class="tech-section">
+                <h4>Engineering Evolution</h4>
+                <ul>
+                    <li><strong>2021-Present:</strong> LLM evaluation, computer vision, edge ML (Stanford + Allwell)</li>
+                    <li><strong>2017-2024:</strong> Full-stack product development, VR systems (Syminar, Head of Product)</li>
+                    <li><strong>2015-2017:</strong> Immersive VR training, human factors research (SJSU, Principal Investigator)</li>
+                    <li>My clinical and HCI foundation informs user-centered AI product development</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Additional Context Section -->
+        <section id="context">
+            <h2>Additional Context</h2>
+            
+            <h3>Why Now?</h3>
+            <p>After building Syminar to 10k users over 7 years, I'm seeking my next frontier AI challenge at scale. Currently employed at Allwell building LLM safety infrastructure; open to the right opportunity offering technical leadership on unsolved problems.</p>
+
+            <h3>Domain Flexibility</h3>
+            <p>While my background is healthcare-heavy, I'm explicitly interested in non-healthcare domains: brain-computer interfaces, AI-enabled productivity hardware/workflows, frontier AI applications. My healthcare expertise demonstrates ability to ship AI in the most regulated environment—transferable to any compliance-sensitive domain.</p>
+
+            <h3>Long-Term Commitment</h3>
+            <p>My 7-year tenure building Syminar demonstrates sustained commitment to hard problems. I'm energized by frontier challenges and strong teams, looking for a place to dig in and build meaningful impact over years.</p>
+
+            <h3>Contact & Next Steps</h3>
+            <p>
+                <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#1e7c757a7f70795e7f726b737077306d6a7f7078716c7a307b7a6b"><span class="__cf_email__" data-cfemail="92f0f9f6f3fcf5d2f3fee7fffcfbbce1e6f3fcf4fde0f6bcf7f6e7">[email&#160;protected]</span></a><br>
+                <strong>Location:</strong> SF Bay Area (open to remote/hybrid for right opportunity)
+            </p>
+            <p class="text-muted">
+                For recruiters: I have multiple tailored resume versions—request specific version for role type (product leadership vs. engineering vs. research). I conduct diligence on companies to understand team dynamics and culture fit before making final decisions.
+            </p>
+        </section>
+    </main>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll navigation with active state
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            const sections = document.querySelectorAll('section');
+            
+            // Update active state on scroll
+            function updateActiveNav() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navL
